@@ -3,20 +3,19 @@ const {
   Model
 } = require('sequelize');
 
-class Users extends Model {
+class Products extends Model {
   static associate(models) {
-    Users.hasMany(models.Sales, {
+    Products.hasMany(models.SalesProducts, {
       foreignKey: 'id',
-      as: 'user_id',
+      as: 'sale_id',
     });
-    Users.hasMany(models.Sales, {
+    Products.hasMany(models.SalesProducts, {
       foreignKey: 'id',
-      as: 'seller_id',
+      as: 'product_id',
     });
   }
 }
-
-Users.init({
+Products.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -27,22 +26,18 @@ Users.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING,
+  price: {
+    type: DataTypes.DECIMAL(4, 2),
     allowNull: false,
   },
-  password: {
+  url_image: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+  }
 }, {
   sequelize,
-  modelName: 'users',
+  modelName: 'products',
   timestamps: false,
 });
 
-module.exports = Users;
+module.exports = Products;
