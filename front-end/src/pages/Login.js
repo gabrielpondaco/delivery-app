@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { requestPost } from '../services/request';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [isDataValid, setIsDataValid] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +22,20 @@ function Login() {
   const handleClick = () => {
     navigate('/register');
   };
+
+  const handleLoginBtn = () => {
+    const response = requestPost('/login', { email, password });
+    if (!response) setIsDataValid(true);
+    else {
+      // checa role do usuário e redireciona para página correta
+      navigate('/customer/products');
+    }
+  };
+
+  const errorMessage = (
+    <h1 data-testid="common_login__element-invalid-email">
+      E-mail ou Nome já cadastrado
+    </h1>);
 
   return (
     <main>
@@ -52,7 +69,7 @@ function Login() {
           type="submit"
           name="enterButton"
           className="login-button"
-          // onClick={ handleClick }
+          onClick={ handleLoginBtn }
           disabled={ btnDisabled }
         >
           LOGIN
@@ -69,6 +86,8 @@ function Login() {
           Ainda não tenho conta
         </button>
       </div>
+      {isDataValid
+        ? errorMessage : '' }
     </main>
   );
 }
