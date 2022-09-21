@@ -10,13 +10,13 @@ module.exports = {
     });
 
     if (!user) {
-      return { code: 404, message: 'Not Found' };
+      return { status: 404, message: 'Not Found' };
     }
 
     const IsValidPassword = md5(data.password) === user.password;
 
     if (!IsValidPassword) {
-      return { code: 401, message: 'Unauthorized - Invalid Password' };
+      return { status: 401, message: 'Unauthorized - Invalid Password' };
     }
 
     const userInfos = {
