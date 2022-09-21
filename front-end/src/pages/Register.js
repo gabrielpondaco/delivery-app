@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { requestPost } from '../services/request';
 
 function Register() {
   const [name, setName] = useState('');
@@ -7,15 +9,21 @@ function Register() {
   const [disabled, setDisabled] = useState(true);
   const [isDataValid, setIsDataValid] = useState(false);
 
-  function handleButton() {
+  const navigate = useNavigate();
+
+  const handleButton = async () => {
     //  função que verifica dados do cadastro
     // verificar se já existe algum usuário com email ou senha
     // requisição POST para API, retorne 409 - Conflict
     // mostra mensagem de erro, setando isDataValid para true;
-    setIsDataValid(true);
     // requisição POST para API, retorne 201 - Created
     // redirecionar para localhost:3000/customer/products, para tipo cliente
-  }
+    const register = await requestPost('/register', { name, email, password });
+    if (!register) setIsDataValid(true);
+    else {
+      navigate('/customer/products');
+    }
+  };
 
   useEffect(() => {
     const regex = /\S+@\S+\.\S+/;
@@ -28,6 +36,10 @@ function Register() {
     setDisabled(!validate);
   }, [email, password, name]);
 
+  const errorMessage = (
+    <h1 data-testid="common_register__element-invalid_register">
+      E-mail ou Nome já cadastrado
+    </h1>);
   return (
     <main>
       <section>
@@ -70,7 +82,8 @@ function Register() {
         </button>
       </section>
       {isDataValid
-        ? <h1 data-testid="isDataValid">E-mail ou Nome já cadastrado</h1> : '' }
+        ? errorMessage
+        : '' }
     </main>
 
   );
