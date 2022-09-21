@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -7,27 +7,14 @@ function Login() {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const navigate = useNavigate();
 
-  const handleDisabled = () => {
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isEmailValid = email.match(regexEmail);
-    const MIN_LENGTH_VALUE = 6;
-    const minPasswordValid = password.length >= MIN_LENGTH_VALUE;
-    if (isEmailValid && minPasswordValid) {
-      setBtnDisabled(false);
-    } else {
-      setBtnDisabled(true);
-    }
-  };
-
-  const handleEmail = ({ target }) => {
-    setEmail(target.value);
-    handleDisabled();
-  };
-
-  const handlePassword = ({ target }) => {
-    setPassword(target.value);
-    handleDisabled();
-  };
+  useEffect(() => {
+    const regex = /\S+@\S+\.\S+/;
+    const emailValidation = regex.test(email);
+    const MIN_LENGTH_PASS = 6;
+    const passwordValidation = password.length >= MIN_LENGTH_PASS;
+    const validate = emailValidation && passwordValidation;
+    setBtnDisabled(!validate);
+  }, [email, password]);
 
   const handleClick = () => {
     navigate('/register');
@@ -45,7 +32,7 @@ function Login() {
           name="email"
           value={ email }
           placeholder="E-mail"
-          onChange={ handleEmail }
+          onChange={ (e) => setEmail(e.target.value) }
         />
         <br />
         <span>Senha</span>
@@ -56,7 +43,7 @@ function Login() {
           name="password"
           value={ password }
           placeholder="Password"
-          onChange={ handlePassword }
+          onChange={ (e) => setPassword(e.target.value) }
         />
       </div>
       <div>
@@ -77,7 +64,7 @@ function Login() {
           name="enterButton"
           className="login-button"
           onClick={ handleClick }
-          disabled={ btnDisabled }
+          disabled={ false }
         >
           Ainda não tenho conta
         </button>
