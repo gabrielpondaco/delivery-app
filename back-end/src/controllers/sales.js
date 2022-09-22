@@ -1,4 +1,4 @@
-const service = require('../services/index');
+const service = require('../services/sales');
 
 const createOrder = async (req, res) => {
   const newOrder = req.body;
@@ -6,13 +6,13 @@ const createOrder = async (req, res) => {
   await service.createOrder(newOrder);
 
   return res.status(200).end();
-}
+};
 
 const getAllClientsOrders = async (_req, res) => {
   const orders = await service.getAllClientsOrders();
 
   return res.status(200).json(orders);
-}
+};
 
 const getByClientOrder = async (req, res) => {
   const { id } = req.params;
@@ -20,7 +20,7 @@ const getByClientOrder = async (req, res) => {
   const order = await service.getByClientOrder(id);
 
   return res.status(200).json(order);
-}
+};
 
 const updateOrderStatus = async (req, res) => {
   const { id } = req.params;
@@ -29,7 +29,7 @@ const updateOrderStatus = async (req, res) => {
   await service.updateOrderStatus(id, status);
 
   return res.status(200).end();
-}
+};
 
 module.exports = {
   createOrder,
