@@ -8,6 +8,12 @@ const createOrder = async (req, res) => {
   return res.status(200).end();
 };
 
+const getByUserId = async (req, res) => {
+  const { id } = req.params;
+  const orders = await service.getByUserId(id);
+  return res.status(200).json(orders);
+};
+
 const getAllClientsOrders = async (_req, res) => {
   const orders = await service.getAllClientsOrders();
 
@@ -36,4 +42,5 @@ module.exports = {
   getAllClientsOrders,
   getByClientOrder,
   updateOrderStatus,
+  getByUserId,
 };
