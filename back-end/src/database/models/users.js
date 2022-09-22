@@ -23,10 +23,11 @@ const attibutes = {
   role: {
     type: DataTypes.STRING,
     allowNull: false,
+    defaultValue: 'customer',
   },
 };
 
-const Users = (sequelize, DataTypes) => {
+const Users = (sequelize) => {
   const Users = sequelize.define('Users', attibutes, {
     timestamps: false,
     tableName: 'users',
