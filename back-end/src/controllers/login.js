@@ -15,6 +15,6 @@ module.exports = {
     const user = await LoginService.register(data);
     if (user.status) return res.status(user.status).json({ error: user.message });
     const tokenGenerated = jwt.generate(user.email, user.role);
-    return res.status(200).json({ ...user, token: tokenGenerated });
+    return res.status(201).json({ ...user, token: tokenGenerated });
   },
 };

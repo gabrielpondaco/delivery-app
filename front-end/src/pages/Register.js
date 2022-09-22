@@ -7,7 +7,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const [isDataValid, setIsDataValid] = useState(false);
+  const [isDataInvalid, setisDataInvalid] = useState(false);
 
   const navigate = useNavigate();
 
@@ -15,11 +15,11 @@ function Register() {
     //  função que verifica dados do cadastro
     // verificar se já existe algum usuário com email ou senha
     // requisição POST para API, retorne 409 - Conflict
-    // mostra mensagem de erro, setando isDataValid para true;
+    // mostra mensagem de erro, setando isDataInvalid para true;
     // requisição POST para API, retorne 201 - Created
     // redirecionar para localhost:3000/customer/products, para tipo cliente
     const register = await requestPost('/register', { name, email, password });
-    if (!register) setIsDataValid(true);
+    if (!register) setisDataInvalid(true);
     else {
       navigate('/customer/products');
     }
@@ -81,7 +81,7 @@ function Register() {
           Cadastrar
         </button>
       </section>
-      {isDataValid
+      {isDataInvalid
         ? errorMessage
         : '' }
     </main>

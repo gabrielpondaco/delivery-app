@@ -6,7 +6,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
-  const [isDataValid, setIsDataValid] = useState(false);
+  const [isDataInvalid, setisDataInvalid] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,9 +23,9 @@ function Login() {
     navigate('/register');
   };
 
-  const handleLoginBtn = () => {
-    const response = requestPost('/login', { email, password });
-    if (!response) setIsDataValid(true);
+  const handleLoginBtn = async () => {
+    const response = await requestPost('/login', { email, password });
+    if (!response) setisDataInvalid(true);
     else {
       // checa role do usuário e redireciona para página correta
       navigate('/customer/products');
@@ -86,7 +86,7 @@ function Login() {
           Ainda não tenho conta
         </button>
       </div>
-      {isDataValid
+      {isDataInvalid
         ? errorMessage : '' }
     </main>
   );
