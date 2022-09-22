@@ -6,10 +6,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      sale_id: {
+      saleId: {
         primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
+        field: 'sale_id',
         references: {
           model: 'sales',
           key: 'id',
@@ -17,10 +18,11 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      product_id: {
+      productId: {
         primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
+        field: 'product_id',
         references: {
           model: 'products',
           key: 'id',
