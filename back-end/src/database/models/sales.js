@@ -33,6 +33,7 @@ const attibutes = {
   },
   status: {
     type: DataTypes.STRING,
+    defaultValue: 'PREPARANDO',
     allowNull: false,
   },
 };
