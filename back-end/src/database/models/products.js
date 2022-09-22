@@ -1,21 +1,7 @@
 'use strict';
-const {
-  Model, DataTypes
-} = require('sequelize');
+const { DataTypes } = require('sequelize');
 
-class Products extends Model {
-  static associate(models) {
-    Products.hasMany(models.SalesProducts, {
-      foreignKey: 'id',
-      as: 'sale_id',
-    });
-    Products.hasMany(models.SalesProducts, {
-      foreignKey: 'id',
-      as: 'product_id',
-    });
-  }
-}
-Products.init({
+const attibutes = {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -34,10 +20,24 @@ Products.init({
     type: DataTypes.STRING,
     allowNull: false,
   }
-}, {
-  sequelize,
-  modelName: 'products',
-  timestamps: false,
-});
+}
 
+const Products = (sequelize) => {
+  const Products = sequelize.define('Products', attibutes, {
+    timestamps: false,
+    tableName: 'products',
+    underscored: true,
+  });
+  Products.associate = (models) => {
+    Products.hasMany(models.SalesProducts, {
+      foreignKey: 'id',
+      as: 'sale_id',
+    });
+    Products.hasMany(models.SalesProducts, {
+      foreignKey: 'id',
+      as: 'product_id',
+    });
+  }
+  return Products;
+}
 module.exports = Products;

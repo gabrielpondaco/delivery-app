@@ -1,10 +1,14 @@
 const express = require('express');
-const { showAll } = require('../controllers/productController');
+const { loginRouter, productRouter } = require('../routes');
 
 const app = express();
 
-app.get('/coffee', (_req, res) => res.status(418).end());
+app.use(express.json());
 
-app.route('/products').get(showAll);
+app.use('/', loginRouter);
+
+app.use('/', productRouter);
+
+app.get('/coffee', (_req, res) => res.status(418).end());
 
 module.exports = app;

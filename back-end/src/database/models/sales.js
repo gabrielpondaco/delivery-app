@@ -1,43 +1,33 @@
-'use strict';
-const { Model, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
-class Sales extends Model {
-  static associate(models) {
-    Sales.belongsTo(models.Users, {
-      foreignKey: 'user_id',
-      as: 'user',
-    });
-    Sales.belongsTo(models.Users, {
-      foreignKey: 'seller_id',
-      as: 'seller',
-    });
-    Sales.hasMany(models.SalesProducts, {
-      foreignKey: 'sale_id',
-      as: 'salesProducts',
-    });
-  }
-}
-
-Sales.init({
+const attibutes = {
   id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    autoIncrement: true,
     primaryKey: true,
-  },
-  total_price: {
-    type: DataTypes.DECIMAL(9, 2),
+    autoIncrement: true,
     allowNull: false,
   },
-  delivery_address: {
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  sellerId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  totalPrice: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
+  deliveryAddress: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  delivery_number: {
+  deliveryNumber: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  sale_date: {
+  saleDate: {
     type: DataTypes.DATE,
     allowNull: false,
   },
@@ -45,10 +35,16 @@ Sales.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
-  sequelize,
-  modelName: 'sales',
-  timestamps: false,
-});
+};
+
+const Sales = (sequelize) => {
+  const Sales = sequelize.define('Sales', attibutes, {
+    timestamps: false,
+    tableName: 'sales',
+    underscored: true,    
+  });
+
+  return Sales;
+};
 
 module.exports = Sales;
