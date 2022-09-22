@@ -22,7 +22,7 @@ const attibutes = {
   }
 }
 
-const Products = (sequelize, DataTypes) => {
+const Products = (sequelize) => {
   const Products = sequelize.define('Products', attibutes, {
     timestamps: false,
     tableName: 'products',

@@ -14,7 +14,7 @@ const attibutes = {
   },
 };
 
-const SaleProduct = (sequelize, DataTypes) => {
+const SaleProduct = (sequelize) => {
   const SalesProduct = sequelize.define('SalesProducts', attibutes , {	
     timestamps: false,
     tableName: 'salesProducts',
