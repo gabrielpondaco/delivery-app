@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-/* <StatusPedido text="PREPARANDO" type="preparando" />
-      <StatusPedido text="ENTREGUE" type="entregue" />
-      <StatusPedido text="PENDENTE" type="pendente" />
+/* <StatusPedido status="preparando" />
+/* <StatusPedido status="entregue" />
+/* <StatusPedido status="pendente" />
+
       exemplo de uso */
 
-function StatusPedido({ text, type }) {
+function StatusPedido({ status }) {
   return (
     <main>
-      <div className={ type }>
+      <div className={ status }>
         <span>
-          {text}
+          {status.toUpperCase()}
         </span>
       </div>
     </main>
@@ -18,7 +19,6 @@ function StatusPedido({ text, type }) {
 }
 
 StatusPedido.propTypes = {
-  text: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
 export default StatusPedido;

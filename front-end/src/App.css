@@ -85,3 +85,14 @@
   text-align: center;
   width: 150px;
 }
+
+.boxCardPedido {
+  background: #eaf1ef;
+  border: 1px solid #b1c2be;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  height: 235px;
+  left: 0%;
+  right: 0%;
+  top: 0;
+}
