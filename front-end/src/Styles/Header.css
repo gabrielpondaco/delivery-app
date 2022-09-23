@@ -1,0 +1,15 @@
+nav {
+  align-items: center;
+  background-color: #036b52;
+  color: #f2fffc;
+  display: flex;
+  font-size: 1.2rem;
+  font-weight: 600;
+  height: 105px;
+  justify-content: space-around;
+}
+
+nav a {
+  color: #f2fffc;
+  text-decoration: none;
+}

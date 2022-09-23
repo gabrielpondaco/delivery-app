@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 import Products from './pages/Products';
+import Orders from './pages/Orders';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrdersDetails from './pages/SellerOrderDetails';
 
@@ -14,6 +15,7 @@ function App() {
       <Route exact path="/" element={ <Navigate to="/login" replace /> } />
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/customer/products" element={ <Products /> } />
+      <Route exact path="/customer/orders" element={ <Orders /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
       <Route path="/*" element={ <NotFound /> } />
