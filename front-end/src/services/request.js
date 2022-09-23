@@ -22,7 +22,7 @@ export const requestPost = async (endpoint, body) => {
   }
 };
 
-export const requesGet = async (endpoint, body) => {
+export const requestGet = async (endpoint, body) => {
   try {
     const { data } = await api.get(endpoint, body);
     return data;

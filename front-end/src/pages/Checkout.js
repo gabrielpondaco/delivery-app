@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CustomerProductTable from '../components/customerProductTable';
 // import propTypes from 'prop-types';
 import Header from '../components/Header';
-import { requesGet, requestPost } from '../services/request';
+import { requestGet, requestPost } from '../services/request';
 
 // function Checkout({ productsArr }) {
 function Checkout() {
@@ -35,8 +35,9 @@ function Checkout() {
 
   useEffect(() => {
     const fetchSellers = async () => {
-      const result = await requesGet('/sellers');
+      const result = await requestGet('/sellers');
       setAllSellers(result);
+      setSeller(result[0].name);
     };
     fetchSellers();
   }, []);
@@ -73,8 +74,12 @@ function Checkout() {
     }
   };
 
+  const handleNavigate = (saleId) => {
+    navigate(`/customer/orders/${saleId}`);
+  };
+
   const handleFinishOrder = async () => {
-    await requestPost('/order', {
+    const saleId = await requestPost('/order', {
       orderInfo: {
         userId: 1,
         sellerId: allSellers.find(({ name }) => name === seller).id,
@@ -85,7 +90,10 @@ function Checkout() {
       },
       products,
     });
-    navigate('/products');
+    if (!saleId) setIsValid(true);
+    // fazer funcionar!!
+    // navigate(`/customer/orders/${saleId}`);
+    handleNavigate(saleId);
   };
 
   return (
@@ -112,7 +120,7 @@ function Checkout() {
               data-testid="customer_checkout__select-seller"
             >
               { allSellers.map(({ name }) => (
-                <option key={ name } defaultValue>{ name }</option>
+                <option key={ name } selected>{ name }</option>
               )) }
             </select>
           </label>
