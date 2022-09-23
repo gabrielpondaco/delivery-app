@@ -12,42 +12,51 @@ import StatusPedido from './StatusPedido';
 // exemplo de uso
 
 const NUMERO_CASAS = -4;
-function CardPedido({ id, status, saleDate, totalPrice, deliveryAddress }) {
+function CardPedido({ order, key }) {
+  const { id, status, saleDate, totalPrice, deliveryAddress } = order;
   return (
-    <main className="boxCardPedido">
+    <main className="boxCardPedido" key={ key }>
       <div data-testid={ `seller_orders__element-order-id-${id}` }>
         Pedido
+        <br />
         {(`0000${id}`).slice(NUMERO_CASAS)}
       </div>
-      <div>
-        <StatusPedido status={ status } id={ id } />
-        <span data-testid={ `seller_orders__element-order-date-${id}` }>
-          { saleDate }
-        </span>
-        <br />
-        <span data-testid={ `seller_orders__element-card-price-${id}` }>
-          R$
-          { totalPrice }
-        </span>
-      </div>
-      <div>
-        <span data-testid={ `seller_orders__element-card-address-${id}` }>
-          {deliveryAddress.length !== 0 ? deliveryAddress : 'no delivery adress'}
-        </span>
-      </div>
+      <section className="cardSection">
+        <div className="statusDatePrice">
+          <StatusPedido status={ status } id={ id } />
+          <div className="displayFlex">
+            <span data-testid={ `seller_orders__element-order-date-${id}` }>
+              { saleDate }
+            </span>
+            <br />
+            <span data-testid={ `seller_orders__element-card-price-${id}` }>
+              R$
+              { totalPrice }
+            </span>
+          </div>
+        </div>
+        <div>
+          <span data-testid={ `seller_orders__element-card-address-${id}` }>
+            {deliveryAddress.length !== 0 ? deliveryAddress : 'no delivery adress'}
+          </span>
+        </div>
+      </section>
     </main>
   );
 }
 
 CardPedido.propTypes = {
-  id: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
-  saleDate: PropTypes.number.isRequired,
-  totalPrice: PropTypes.number.isRequired,
-  deliveryAddress: PropTypes.string,
+  order: PropTypes.objectOf({
+    id: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired,
+    saleDate: PropTypes.string.isRequired,
+    totalPrice: PropTypes.number.isRequired,
+    deliveryAddress: PropTypes.string,
+  }).isRequired,
+  key: PropTypes.number.isRequired,
 };
 
-CardPedido.defaultProps = {
-  deliveryAddress: '',
-};
+// CardPedido.defaultProps = {
+//   deliveryAddress: '',
+// };
 export default CardPedido;
