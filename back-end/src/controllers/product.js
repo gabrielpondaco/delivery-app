@@ -1,4 +1,4 @@
-const { getAll } = require('../models/productsModel');
+const { getAll } = require('../database/models/products');
 
 const showAll = async (_req, res) => {
   const result = await getAll();

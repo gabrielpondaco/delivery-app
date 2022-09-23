@@ -15,21 +15,25 @@ const NUMERO_CASAS = -4;
 function CardPedido({ id, status, saleDate, totalPrice, deliveryAddress }) {
   return (
     <main className="boxCardPedido">
-      <div>
+      <div data-testid={ `seller_orders__element-order-id-${id}` }>
         Pedido
         {(`0000${id}`).slice(NUMERO_CASAS)}
       </div>
       <div>
-        <StatusPedido status={ status } />
-        <span>{ saleDate }</span>
+        <StatusPedido status={ status } id={ id } />
+        <span data-testid={ `seller_orders__element-order-date-${id}` }>
+          { saleDate }
+        </span>
         <br />
-        <span>
+        <span data-testid={ `seller_orders__element-card-price-${id}` }>
           R$
           { totalPrice }
         </span>
       </div>
       <div>
-        {deliveryAddress.length !== 0 ? deliveryAddress : 'no delivery adress'}
+        <span data-testid={ `seller_orders__element-card-address-${id}` }>
+          {deliveryAddress.length !== 0 ? deliveryAddress : 'no delivery adress'}
+        </span>
       </div>
     </main>
   );
@@ -38,7 +42,6 @@ function CardPedido({ id, status, saleDate, totalPrice, deliveryAddress }) {
 CardPedido.propTypes = {
   id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
-  // saleDate: PropTypes.instanceOf(Date).isRequired,
   saleDate: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
   deliveryAddress: PropTypes.string,

@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 
       exemplo de uso */
 
-function StatusPedido({ status }) {
+function StatusPedido({ status, id }) {
   return (
     <main>
       <div className={ status }>
-        <span>
+        <span data-testid={ `seller_orders__element-delivery-status-${id}` }>
           {status.toUpperCase()}
         </span>
       </div>
@@ -20,5 +20,6 @@ function StatusPedido({ status }) {
 
 StatusPedido.propTypes = {
   status: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 export default StatusPedido;
