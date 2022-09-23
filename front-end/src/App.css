@@ -4,6 +4,11 @@
   padding: 0;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
 .App {
   align-items: center;
   background: #0fa36b;
@@ -99,9 +104,11 @@
   box-sizing: border-box;
   display: flex;
   left: 0%;
-  right: 0%;
+  margin-bottom: 1cm;
+  margin-right: 1cm;
+  right: 50%;
   top: 0;
-  width: 30vw;
+  width: 25vw;
 }
 
 .cardSection {
@@ -115,5 +122,23 @@
 
 .displayFlex {
   display: flex;
-  flex-direction: column;
+  flex-flow: wrap;
+  flex-direction: row;
+}
+
+.sizing {
+  margin: auto;
+  text-align: center;
+  width: 80vw;
+}
+
+.textAlign {
+  text-align: end;
+}
+
+.numeroPedido {
+  align-items: center;
+  display: flex;
+  padding-left: 0.5cm;
+  padding-right: 0.5cm;
 }
