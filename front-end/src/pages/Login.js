@@ -34,7 +34,7 @@ function Login() {
 
   const errorMessage = (
     <h1 data-testid="common_login__element-invalid-email">
-      E-mail ou Nome já cadastrado
+      E-mail ou senha incorretos
     </h1>);
 
   return (

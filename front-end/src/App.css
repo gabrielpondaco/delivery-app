@@ -52,3 +52,47 @@
     transform: rotate(-10deg);
   }
 }
+
+.entregue {
+  align-items: center;
+  background-color: #00cc9bbf;
+  border-radius: 10px;
+  display: flex;
+  height: 75px;
+  justify-content: center;
+  text-align: center;
+  width: 150px;
+}
+
+.preparando {
+  align-items: center;
+  background-color: #66cc00bf;
+  border-radius: 10px;
+  display: flex;
+  height: 75px;
+  justify-content: center;
+  text-align: center;
+  width: 150px;
+}
+
+.pendente {
+  align-items: center;
+  background-color: #ccb800bf;
+  border-radius: 10px;
+  display: flex;
+  height: 75px;
+  justify-content: center;
+  text-align: center;
+  width: 150px;
+}
+
+.boxCardPedido {
+  background: #eaf1ef;
+  border: 1px solid #b1c2be;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  height: 235px;
+  left: 0%;
+  right: 0%;
+  top: 0;
+}
