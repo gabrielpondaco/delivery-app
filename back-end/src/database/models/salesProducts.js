@@ -2,12 +2,6 @@
 const { DataTypes } = require('sequelize');
 
 const attibutes = {
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-  },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
