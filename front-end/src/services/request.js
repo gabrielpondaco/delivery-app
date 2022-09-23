@@ -22,4 +22,13 @@ export const requestPost = async (endpoint, body) => {
   }
 };
 
+export const requesGet = async (endpoint, body) => {
+  try {
+    const { data } = await api.get(endpoint, body);
+    return data;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 export default api;

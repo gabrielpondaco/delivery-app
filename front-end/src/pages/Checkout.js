@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CustomerProductTable from '../components/customerProductTable';
 // import propTypes from 'prop-types';
 import Header from '../components/Header';
-import api from '../services/request';
+import { requesGet, requestPost } from '../services/request';
 
+// function Checkout({ productsArr }) {
 function Checkout() {
-  const [total, setTotal] = useState(0);
-  const [sellers, setSellers] = useState([]);
-
   // para teste
   const productsArr = [
     {
@@ -23,16 +23,20 @@ function Checkout() {
     },
   ];
 
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [allSellers, setAllSellers] = useState([]);
+  const [seller, setSeller] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [isValid, setIsValid] = useState(true);
   const [products, setProducts] = useState(productsArr);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSellers = async () => {
-      try {
-        const result = await api.get('/sellers').then((res) => res.data);
-        setSellers(result);
-      } catch (error) {
-        console.log(error);
-      }
+      const result = await requesGet('/sellers');
+      setAllSellers(result);
     };
     fetchSellers();
   }, []);
@@ -41,53 +45,60 @@ function Checkout() {
     const newTotal = products
       .map(({ price, quantity }) => Number(price) * Number(quantity))
       .reduce((prev, curr) => prev + curr, 0);
-    setTotal(newTotal);
+    setTotalPrice(newTotal);
   }, [products]);
 
-  const tableHead = [
-    'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item'];
-  const removeItemBtn = (
-    <button
-      type="button"
-      onClick={ ({ target }) => {
-        const newProducts = products
-          .filter(({ id }) => Number(id) !== Number(target.parentNode.parentNode.id));
-        setProducts(newProducts);
-      } }
-    >
-      Remover
-    </button>
-  );
+  useEffect(() => {
+    if (products
+      .length === 0 || seller === '' || deliveryAddress === '' || deliveryNumber === '') {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [products, seller, deliveryAddress, deliveryNumber]);
+
+  const onInpChange = ({ target }) => {
+    switch (target.id) {
+    case 'seller':
+      setSeller(target.value);
+      break;
+    case 'address':
+      setDeliveryAddress(target.value);
+      break;
+    case 'number':
+      setDeliveryNumber(target.value);
+      break;
+    default:
+      break;
+    }
+  };
+
+  const handleFinishOrder = async () => {
+    await requestPost('/order', {
+      orderInfo: {
+        userId: 1,
+        sellerId: allSellers.find(({ name }) => name === seller).id,
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+        saleDate: new Date(),
+      },
+      products,
+    });
+    navigate('/products');
+  };
 
   return (
     <main>
       <Header />
       <h1>Finalizar Pedido</h1>
       <div className="order-details">
-        <table>
-          <thead>
-            <tr>
-              { tableHead.map((column) => (
-                <th key={ column }>{ column }</th>
-              )) }
-            </tr>
-          </thead>
-          <tbody>
-            { products.map(({ id, quantity, name, price }, index) => (
-              <tr key={ name } id={ id }>
-                <td>{ index + 1 }</td>
-                <td>{ name }</td>
-                <td>{ quantity }</td>
-                <td>{ price }</td>
-                <td>{ (Number(price) * Number(quantity)).toFixed(2) }</td>
-                <td>
-                  { removeItemBtn }
-                </td>
-              </tr>
-            )) }
-          </tbody>
-        </table>
-        <p>{ `Total: R$${total}` }</p>
+        <CustomerProductTable products={ products } setProducts={ setProducts } />
+        <p
+          data-testid="customer_checkout__element-order-total-price"
+        >
+          { `Total: R$${totalPrice}` }
+        </p>
       </div>
       <div className="delivery-details">
         <h2>Detalhes e Endereço para Entrega</h2>
@@ -96,10 +107,45 @@ function Checkout() {
             P. Vendedora Responsável
             <select
               id="seller"
+              value={ seller }
+              onChange={ onInpChange }
+              data-testid="customer_checkout__select-seller"
             >
-              {/* { sellers.map() } */}
+              { allSellers.map(({ name }) => (
+                <option key={ name } defaultValue>{ name }</option>
+              )) }
             </select>
           </label>
+          <label htmlFor="address">
+            Endereço
+            <input
+              type="address"
+              id="address"
+              value={ deliveryAddress }
+              minLength={ 10 }
+              onChange={ onInpChange }
+              data-testid="customer_checkout__input-address"
+            />
+          </label>
+          <label htmlFor="number">
+            Número
+            <input
+              type="number"
+              id="number"
+              value={ deliveryNumber }
+              min={ 0 }
+              onChange={ onInpChange }
+              data-testid="customer_checkout__input-address-number"
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={ isValid }
+            onClick={ handleFinishOrder }
+            data-testid="customer_checkout__button-submit-order"
+          >
+            Finalizar Pedido
+          </button>
         </form>
       </div>
     </main>
