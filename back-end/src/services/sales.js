@@ -14,7 +14,7 @@ const createOrder = async ({ orderInfo, products }) => {
 
 const getAllBySellerOrder = async (id) => {
   const orders = await model.Sales.findAll({
-    where: { sellerId : id },
+    where: { sellerId: id },
     raw: true,
   });
 
