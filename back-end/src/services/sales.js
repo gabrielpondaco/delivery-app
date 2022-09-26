@@ -12,8 +12,9 @@ const createOrder = async ({ orderInfo, products }) => {
   }
 };
 
-const getAllClientsOrders = async () => {
+const getAllBySellerOrder = async (id) => {
   const orders = await model.Sales.findAll({
+    where: { sellerId : id },
     raw: true,
   });
 
@@ -55,7 +56,7 @@ const updateOrderStatus = async (id, status) => {
 
 module.exports = {
   createOrder,
-  getAllClientsOrders,
+  getAllBySellerOrder,
   getByClientOrder,
   updateOrderStatus,
   getByUserId,

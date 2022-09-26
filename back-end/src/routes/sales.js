@@ -4,7 +4,7 @@ const auth = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.get('/seller/orders', controller.getAllClientsOrders);
+router.get('/seller/orders', controller.getAllBySellerOrder);
 
 router.get('/customer/orders', controller.getByClientOrder);
 

@@ -86,7 +86,7 @@ function Checkout() {
         totalPrice,
         deliveryAddress,
         deliveryNumber,
-        saleDate: new Date(),
+        saleDate: new Date().toLocaleDateString(),
       },
       products,
     });
