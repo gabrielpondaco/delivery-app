@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  node:
+    build: .
+    container_name: delivery_app
+    tty: true
+    stdin_open: true
+    command: bash
+    restart: always
+    working_dir: /home/node/app
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    depends_on:
+      - db
+    ports:
+      - 3001:3001
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: '123456'
+      MYSQL_HOST: db
+      PORT: '3001'
+
+  db:
+    container_name: delivery_app_db
+    image: mysql:5.7
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456'
+    ports:
+      - 3307:3306
+
+networks:
+  default:
+    name: delivery_app_net
+
+volumes:
+  node_modules:
