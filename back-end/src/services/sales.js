@@ -3,15 +3,18 @@ const productService = require('./product');
 
 const createOrder = async ({ orderInfo, products }) => {
   try {
-    await model.Sales.create(orderInfo);
-    await model.SalesProduct.bulkCreate(products);
+    const { id: saleId } = await model.Sales.create(orderInfo);
+    const fixedProducts = products.map(({ id, quantity }) => ({ saleId, productId: id, quantity }));
+    await model.SalesProduct.bulkCreate(fixedProducts);
+    return saleId;
   } catch (err) {
     throw new Error(err.message);
   }
 };
 
-const getAllClientsOrders = async () => {
+const getAllBySellerOrder = async (id) => {
   const orders = await model.Sales.findAll({
+    where: { sellerId: id },
     raw: true,
   });
 
@@ -53,7 +56,7 @@ const updateOrderStatus = async (id, status) => {
 
 module.exports = {
   createOrder,
-  getAllClientsOrders,
+  getAllBySellerOrder,
   getByClientOrder,
   updateOrderStatus,
   getByUserId,
