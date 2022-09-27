@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomerProductTable from '../components/customerProductTable';
-// import propTypes from 'prop-types';
 import Header from '../components/Header';
+import DeliveryContext from '../context/DeliveryContext';
 import { requestGet, requestPost } from '../services/request';
 
-// function Checkout({ productsArr }) {
 function Checkout() {
   // para teste
-  const productsArr = [
-    {
-      id: 1,
-      quantity: 2,
-      name: 'Coca Cola',
-      price: 3.00,
-    },
-    {
-      id: 2,
-      quantity: 3,
-      name: 'Coca Cola Zero',
-      price: 3.00,
-    },
-  ];
+  // const productsArr = [
+  //   {
+  //     id: 1,
+  //     quantity: 2,
+  //     name: 'Coca Cola',
+  //     price: 3.00,
+  //   },
+  //   {
+  //     id: 2,
+  //     quantity: 3,
+  //     name: 'Coca Cola Zero',
+  //     price: 3.00,
+  //   },
+  // ];
+  const { setCartItems, cartItems } = useContext(DeliveryContext);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [allSellers, setAllSellers] = useState([]);
@@ -29,7 +29,6 @@ function Checkout() {
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [isValid, setIsValid] = useState(true);
-  const [products, setProducts] = useState(productsArr);
 
   const navigate = useNavigate();
 
@@ -43,20 +42,20 @@ function Checkout() {
   }, []);
 
   useEffect(() => {
-    const newTotal = products
-      .map(({ price, quantity }) => Number(price) * Number(quantity))
+    const newTotal = cartItems
+      .map(({ price, qty }) => Number(price) * Number(qty))
       .reduce((prev, curr) => prev + curr, 0);
     setTotalPrice(newTotal);
-  }, [products]);
+  }, [cartItems]);
 
   useEffect(() => {
-    if (products
+    if (cartItems
       .length === 0 || seller === '' || deliveryAddress === '' || deliveryNumber === '') {
       setIsValid(true);
     } else {
       setIsValid(false);
     }
-  }, [products, seller, deliveryAddress, deliveryNumber]);
+  }, [cartItems, seller, deliveryAddress, deliveryNumber]);
 
   const onInpChange = ({ target }) => {
     switch (target.id) {
@@ -88,11 +87,9 @@ function Checkout() {
         deliveryNumber,
         saleDate: new Date().toLocaleDateString(),
       },
-      products,
+      products: cartItems,
     });
     if (!saleId) setIsValid(true);
-    // fazer funcionar!!
-    // navigate(`/customer/orders/${saleId}`);
     handleNavigate(saleId);
   };
 
@@ -101,7 +98,7 @@ function Checkout() {
       <Header />
       <h1>Finalizar Pedido</h1>
       <div className="order-details">
-        <CustomerProductTable products={ products } setProducts={ setProducts } />
+        <CustomerProductTable products={ cartItems } setProducts={ setCartItems } />
         <p
           data-testid="customer_checkout__element-order-total-price"
         >
@@ -120,7 +117,7 @@ function Checkout() {
               data-testid="customer_checkout__select-seller"
             >
               { allSellers.map(({ name }) => (
-                <option key={ name } selected>{ name }</option>
+                <option key={ name }>{ name }</option>
               )) }
             </select>
           </label>
@@ -159,9 +156,5 @@ function Checkout() {
     </main>
   );
 }
-
-// Checkout.propTypes = {
-//   products: propTypes.arrayOf(Object).isRequired,
-// };
 
 export default Checkout;

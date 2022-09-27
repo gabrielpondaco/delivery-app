@@ -30,7 +30,7 @@ function CustomerProductTable({ products, setProducts }) {
         </tr>
       </thead>
       <tbody>
-        { products.map(({ id, quantity, name, price }, index) => (
+        { products.map(({ id, qty, name, price }, index) => (
           <tr key={ name } id={ id }>
             <td
               data-testid={ `${longDataTest}${index}` }
@@ -45,7 +45,7 @@ function CustomerProductTable({ products, setProducts }) {
             <td
               data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
             >
-              { quantity }
+              { qty }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
@@ -55,7 +55,7 @@ function CustomerProductTable({ products, setProducts }) {
             <td
               data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
             >
-              { (Number(price) * Number(quantity)).toFixed(2) }
+              { (Number(price) * Number(qty)).toFixed(2) }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-remove-${index}` }
