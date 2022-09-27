@@ -22,6 +22,15 @@ export const requestPost = async (endpoint, body) => {
   }
 };
 
+export const requestGet = async (endpoint, body) => {
+  try {
+    const { data } = await api.get(endpoint, body);
+    return data;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 export const requestProducts = async (endpoint) => {
   const { data } = await api.get(endpoint);
   return data;

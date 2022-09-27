@@ -3,9 +3,9 @@ const service = require('../services/sales');
 const createOrder = async (req, res) => {
   const newOrder = req.body;
 
-  await service.createOrder(newOrder);
+  const saleId = await service.createOrder(newOrder);
 
-  return res.status(200).end();
+  return res.status(200).json(saleId);
 };
 
 const getByUserId = async (req, res) => {
@@ -14,14 +14,15 @@ const getByUserId = async (req, res) => {
   return res.status(200).json(orders);
 };
 
-const getAllClientsOrders = async (_req, res) => {
-  const orders = await service.getAllClientsOrders();
+const getAllBySellerOrder = async (req, res) => {
+  const { id } = req.body;
+  const orders = await service.getAllBySellerOrder(id);
 
   return res.status(200).json(orders);
 };
 
 const getByClientOrder = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
 
   const order = await service.getByClientOrder(id);
 
@@ -39,7 +40,7 @@ const updateOrderStatus = async (req, res) => {
 
 module.exports = {
   createOrder,
-  getAllClientsOrders,
+  getAllBySellerOrder,
   getByClientOrder,
   updateOrderStatus,
   getByUserId,
