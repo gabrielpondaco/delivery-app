@@ -18,7 +18,7 @@ function Header() {
         Meus Pedidos
       </Link>
       <Link
-        to
+        to="/customer/checkout"
         data-testid="customer_products__element-navbar-user-full-name"
       >
         Nome

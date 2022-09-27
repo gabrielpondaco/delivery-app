@@ -1,0 +1,79 @@
+.card {
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 7px;
+  box-shadow: 15px 15px 15px rgb(112, 141, 118);
+  height: 280px;
+  margin-bottom: 30px;
+  text-align: center;
+  width: 250px;
+}
+
+.card img {
+  height: 150px;
+  width: 150px;
+}
+
+.card input {
+  height: 32px;
+  margin-left: 2px;
+  margin-right: 2px;
+  width: 40px;
+}
+
+.card-style {
+  background-color: rgba(197, 222, 173, 0.908);
+  border-radius: 7px;
+  height: 100px;
+  margin-top: 5px;
+}
+
+.card-style button {
+  background-color: green;
+  border-radius: 7px;
+  color: white;
+  font-size: 15px;
+  width: 40px;
+}
+
+.flex-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
+  margin: 10px auto;
+  width: 90%;
+}
+
+.buttons {
+  width: 100%;
+}
+
+.buttons button {
+  padding: 5px;
+}
+
+.total-price {
+  border-radius: 7px;
+  bottom: 0;
+  height: 100px;
+  position: fixed;
+  right: 10px;
+  text-align: center;
+  width: 200px;
+}
+
+.total-price button {
+  background-color: green;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+.total-price button:hover {
+  background-color: rgb(1, 101, 1);
+}
