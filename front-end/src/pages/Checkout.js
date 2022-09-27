@@ -23,7 +23,6 @@ function Checkout() {
   //   },
   // ];
   const { setCartItems, cartItems } = useContext(DeliveryContext);
-
   const [totalPrice, setTotalPrice] = useState(0);
   const [allSellers, setAllSellers] = useState([]);
   const [seller, setSeller] = useState('');
