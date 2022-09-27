@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CustomerProductTable from '../components/customerProductTable';
 import Header from '../components/Header';
 import DeliveryContext from '../context/DeliveryContext';
-import { requestGet, requestPost } from '../services/request';
+import { requestGet, requestPost, setToken } from '../services/request';
 import { getLocalStorage } from '../utils';
 
 function Checkout() {
@@ -83,6 +83,7 @@ function Checkout() {
     const userId = await requestPost('/userId', {
       email: getLocalStorage('user').email,
     });
+    setToken(getLocalStorage('user').token);
     const saleId = await requestPost('/order', {
       orderInfo: {
         userId,
@@ -107,7 +108,7 @@ function Checkout() {
         <p
           data-testid="customer_checkout__element-order-total-price"
         >
-          { `Total: R$${totalPrice.toFixed(2).replace('.', ',')}` }
+          { `Total: R$${(`${totalPrice}`).replace('.', ',')}` }
         </p>
       </div>
       <div className="delivery-details">

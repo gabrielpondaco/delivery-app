@@ -50,12 +50,12 @@ function CustomerProductTable({ products, setProducts }) {
             <td
               data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
             >
-              { price }
+              { price.replace('.', ',') }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
             >
-              { (Number(price) * Number(qty)).toFixed(2) }
+              { (Number(price) * Number(qty)).toFixed(2).toString().replace('.', ',') }
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-remove-${index}` }
