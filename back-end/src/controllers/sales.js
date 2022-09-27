@@ -5,7 +5,7 @@ const createOrder = async (req, res) => {
 
   const saleId = await service.createOrder(newOrder);
 
-  return res.status(200).json(saleId);
+  return res.status(201).json(saleId);
 };
 
 const getByUserId = async (req, res) => {
