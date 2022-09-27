@@ -13,3 +13,11 @@ nav a {
   color: #f2fffc;
   text-decoration: none;
 }
+
+.username a {
+  align-items: center;
+  background-color: #034b3ab6;
+  display: flex;
+  height: 105px;
+  padding: 0 50px;
+}
