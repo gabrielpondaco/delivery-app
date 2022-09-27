@@ -8,6 +8,7 @@ import Orders from './pages/Orders';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrdersDetails from './pages/SellerOrderDetails';
 import CustomerOrdersDetails from './pages/CustomerOrderDetails';
+import Logout from './pages/Logout';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route exact path="/customer/orders/:id" element={ <CustomerOrdersDetails /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
+      <Route exact path="/logout" element={ <Logout /> } />
       <Route path="/*" element={ <NotFound /> } />
     </Routes>
   );
