@@ -7,6 +7,7 @@ import Products from './pages/Products';
 import Orders from './pages/Orders';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrdersDetails from './pages/SellerOrderDetails';
+import CustomerOrdersDetails from './pages/CustomerOrderDetails';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/customer/products" element={ <Products /> } />
       <Route exact path="/customer/orders" element={ <Orders /> } />
+      <Route exact path="/customer/orders/:id" element={ <CustomerOrdersDetails /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
       <Route path="/*" element={ <NotFound /> } />
