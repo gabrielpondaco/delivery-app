@@ -42,10 +42,10 @@ function Orders() {
     <>
       <Header />
       <main className="sizing">
-        <h1>SellerOrders</h1>
+        <h1>customer Order</h1>
         <section className="displayFlex">
           {orders.map((order, index) => (
-            <Link to={ `/seller/orders/${order.id}` } key={ index }>
+            <Link to={ `/customer/orders/${order.id}` } key={ index }>
               <CardPedido order={ order } />
             </Link>))}
         </section>
