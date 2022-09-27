@@ -101,4 +101,63 @@
   left: 0%;
   right: 0%;
   top: 0;
+  width: 100%;
+}
+
+.boxCardDetails {
+  background: #eaf1ef;
+  border: 1px solid #b1c2be;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 30px;
+  justify-content: space-evenly;
+  left: 0%;
+  right: 0%;
+  top: 0;
+  width: 100%;
+}
+
+.details-center-card {
+  height: 500px;
+  margin: auto;
+  margin-top: 50px;
+  padding: 10px;
+  width: 70rem;
+}
+
+table, th, td {
+  border-collapse: collapse;
+  padding: 5px 2px;
+}
+
+table {
+  margin: auto;
+  width: 98%;
+}
+
+td {
+  text-align: center;
+}
+
+.item-details {
+  background-color: #0fa36b;
+}
+
+.description-details {
+  background-color: #d1d1d1;
+}
+
+.quantity-details {
+  background-color: #016b24;
+  color: white;
+}
+
+.unity-details {
+  background-color: #2d0075;
+  color: white;
+}
+
+.total-details {
+  background-color: #3e71cf;
+  color: white;
 }
