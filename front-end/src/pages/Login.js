@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { requestPost, setToken } from '../services/request';
 import { setLocalStorage } from '../utils';
-import { requestPost } from '../services/request';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -28,6 +28,7 @@ function Login() {
     const response = await requestPost('/login', { email, password });
     if (!response) setisDataInvalid(true);
     else {
+      setToken(response.token);
       setLocalStorage('user', response);
       navigate('/customer/products');
     }
