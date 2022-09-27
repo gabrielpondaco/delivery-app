@@ -8,4 +8,8 @@ module.exports = {
     });
     return sellers;
   },
+  async getUserId(email) {
+    const user = await models.Users.findOne({ where: { email }, raw: true });
+    return user.id;
+  },
 };

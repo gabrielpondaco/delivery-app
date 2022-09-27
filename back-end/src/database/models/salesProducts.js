@@ -2,6 +2,16 @@
 const { DataTypes } = require('sequelize');
 
 const attibutes = {
+  saleId: {
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  productId: {
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,

@@ -13,14 +13,10 @@ function Products() {
 
   const navigate = useNavigate();
 
-  const totalPrice = () => {
-    const total = cartItems.reduce((acc, { price, qty }) => {
-      const priceNumber = Number(price.replace('R$', ''));
-      const totalItem = priceNumber * qty;
-      return acc + totalItem;
-    }, 0);
-    return total;
-  };
+  const totalPrice = cartItems.reduce((acc, { price, qty }) => {
+    const totalItem = Number(price) * Number(qty);
+    return acc + totalItem;
+  }, 0);
 
   useEffect(() => {
     async function getProducts() {
@@ -51,7 +47,7 @@ function Products() {
             key={ product.id }
             id={ product.id }
             image={ product.url_image }
-            price={ `R$${product.price}` }
+            price={ product.price }
             name={ product.name }
           />
         ))}
@@ -60,9 +56,18 @@ function Products() {
         <button
           type="button"
           onClick={ handleClick }
-          data-testid="customer_checkout__element-order-total-price"
+          data-testid="customer_products__button-cart"
+          disabled={ cartItems.length === 0 }
         >
-          {`Ver Carrinho: R$${totalPrice().toFixed(2)}`}
+          <span className="total-checkout">
+            <span>
+              Ver Carrinho:
+              R$
+            </span>
+            <span data-testid="customer_products__checkout-bottom-value">
+              {totalPrice.toFixed(2).replace('.', ',')}
+            </span>
+          </span>
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { requestPost } from '../services/request';
+import { requestPost, setToken } from '../services/request';
+import { setLocalStorage } from '../utils';
 
 function Register() {
   const [name, setName] = useState('');
@@ -21,6 +22,8 @@ function Register() {
     const register = await requestPost('/register', { name, email, password });
     if (!register) setisDataInvalid(true);
     else {
+      setToken(register.token);
+      setLocalStorage('user', register);
       navigate('/customer/products');
     }
   };

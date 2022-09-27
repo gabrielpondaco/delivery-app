@@ -3,12 +3,12 @@ const productService = require('./product');
 
 const createOrder = async ({ orderInfo, products }) => {
   try {
-    const { id: saleId } = await model.Sales.create(orderInfo);
-    const fixedProducts = products.map(({ id, quantity }) => ({ saleId, productId: id, quantity }));
-    await model.SalesProduct.bulkCreate(fixedProducts);
-    return saleId;
+    const { dataValues } = await model.Sales.create(orderInfo);
+    const fixedProducts = products.map(({ id, qty }) => ({ saleId: dataValues.id, productId: id, quantity: qty }));
+    await model.SalesProducts.bulkCreate(fixedProducts);
+    return dataValues.id;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(err);
   }
 };
 

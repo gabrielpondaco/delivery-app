@@ -78,7 +78,12 @@ function CardProducts(props) {
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
       <div className="card-style">
-        <p data-testid={ `customer_products__element-card-price-${id}` }>{ price }</p>
+        <div className="card-price">
+          <p>R$</p>
+          <p data-testid={ `customer_products__element-card-price-${id}` }>
+            { price.replace('.', ',') }
+          </p>
+        </div>
         <div className="buttons">
           <button
             data-testid={ `customer_products__button-card-add-item-${id}` }

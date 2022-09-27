@@ -28,9 +28,8 @@ function Login() {
     const response = await requestPost('/login', { email, password });
     if (!response) setisDataInvalid(true);
     else {
-      const { token, name, role } = response;
-      setToken(token);
-      setLocalStorage('user', { name, email, role, token });
+      setToken(response.token);
+      setLocalStorage('user', response);
       navigate('/customer/products');
     }
   };

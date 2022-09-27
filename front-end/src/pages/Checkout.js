@@ -4,6 +4,7 @@ import CustomerProductTable from '../components/customerProductTable';
 import Header from '../components/Header';
 import DeliveryContext from '../context/DeliveryContext';
 import { requestGet, requestPost } from '../services/request';
+import { getLocalStorage } from '../utils';
 
 function Checkout() {
   // para teste
@@ -45,7 +46,7 @@ function Checkout() {
     const newTotal = cartItems
       .map(({ price, qty }) => Number(price) * Number(qty))
       .reduce((prev, curr) => prev + curr, 0);
-    setTotalPrice(newTotal);
+    setTotalPrice(newTotal.toFixed(2));
   }, [cartItems]);
 
   useEffect(() => {
@@ -77,10 +78,14 @@ function Checkout() {
     navigate(`/customer/orders/${saleId}`);
   };
 
-  const handleFinishOrder = async () => {
+  const handleFinishOrder = async (e) => {
+    e.preventDefault();
+    const userId = await requestPost('/userId', {
+      email: getLocalStorage('user').email,
+    });
     const saleId = await requestPost('/order', {
       orderInfo: {
-        userId: 1,
+        userId,
         sellerId: allSellers.find(({ name }) => name === seller).id,
         totalPrice,
         deliveryAddress,
@@ -102,7 +107,7 @@ function Checkout() {
         <p
           data-testid="customer_checkout__element-order-total-price"
         >
-          { `Total: R$${totalPrice}` }
+          { `Total: R$${totalPrice.toFixed(2).replace('.', ',')}` }
         </p>
       </div>
       <div className="delivery-details">
