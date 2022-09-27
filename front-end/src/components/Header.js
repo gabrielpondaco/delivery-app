@@ -1,8 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../Styles/Header.css';
+import { getLocalStorage } from '../utils';
 
 function Header() {
+  const { name, token } = getLocalStorage('user');
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
+
   return (
     <nav>
       <Link
@@ -17,14 +26,16 @@ function Header() {
       >
         Meus Pedidos
       </Link>
+      <div className="username">
+        <Link
+          to="/customer/checkout"
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          {name}
+        </Link>
+      </div>
       <Link
-        to
-        data-testid="customer_products__element-navbar-user-full-name"
-      >
-        Nome
-      </Link>
-      <Link
-        to="/login"
+        to="/logout"
         data-testid="customer_products__element-navbar-link-logout"
       >
         Sair
