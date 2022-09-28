@@ -6,7 +6,9 @@ const router = express.Router();
 
 router.get('/seller/orders', controller.getAllBySellerOrder);
 
-router.get('/customer/orders', controller.getByClientOrder);
+// router.get('/customer/orders', controller.getByClientOrder);
+
+router.get('/orders/:id', controller.getByClientOrder);
 
 router.post('/order', controller.createOrder);
 
