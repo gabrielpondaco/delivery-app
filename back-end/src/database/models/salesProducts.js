@@ -21,7 +21,7 @@ const attibutes = {
 const SaleProduct = (sequelize) => {
   const SalesProduct = sequelize.define('SalesProducts', attibutes , {	
     timestamps: false,
-    tableName: 'salesProducts',
+    tableName: 'sales_products',
     underscored: true,
   });
   SalesProduct.associate = (models) => {
