@@ -31,6 +31,9 @@ function Login() {
       setToken(response.token);
       setLocalStorage('user', response);
       navigate('/customer/products');
+      if (response.role === 'customer') navigate('/customer/products');
+      if (response.role === 'seller') navigate('/seller/orders');
+      if (response.role === 'administrator') navigate('/admin/manage');
     }
   };
 
