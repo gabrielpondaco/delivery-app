@@ -54,12 +54,12 @@ function CardDetailsSeller({ id, status, saleDate }) {
       <span
         data-testid="seller_order_details__element-order-details-label-order-date"
       >
-        { saleDate }
+        { new Date(saleDate).toLocaleDateString('pt-br') }
       </span>
       <div
         data-testid="seller_order_details__element-order-details-label-delivery-status"
       >
-        {statusChanged.toUpperCase()}
+        {statusChanged}
       </div>
       <button
         type="button"
