@@ -2,7 +2,8 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 function ProductTableItem({ index, description, quantity, unitPrice }) {
-  const subTotal = (Number(unitPrice) * Number(quantity)).toFixed(2);
+  const subTotal = (
+    Number(unitPrice) * Number(quantity)).toFixed(2).toString().replace('.', ',');
   return (
     <tr>
       <td

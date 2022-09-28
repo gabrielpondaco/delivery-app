@@ -1,31 +1,17 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import ProductTableItem from './ProductTableItem';
 
-function ProductTableLine() {
-  const productsDetails = [
-    {
-      id: 1,
-      description: 'xablau',
-      quantity: 2,
-      unitPrice: '16.00',
-    },
-    {
-      id: 2,
-      description: 'xablau2',
-      quantity: 3,
-      unitPrice: '10.00',
-    },
-  ];
-
-  const Items = productsDetails.map((product, index) => {
-    const { id, description, quantity, unitPrice } = product;
+function ProductTableLine({ products }) {
+  const Items = products.map((product, index) => {
+    const { id, name, quantity, price } = product;
     return (
       <ProductTableItem
         key={ id }
         index={ index }
-        description={ description }
+        description={ name }
         quantity={ quantity }
-        unitPrice={ unitPrice }
+        unitPrice={ price }
       />
     );
   });
@@ -47,5 +33,9 @@ function ProductTableLine() {
     </table>
   );
 }
+
+ProductTableLine.propTypes = {
+  products: propTypes.arrayOf(propTypes.objectOf(propTypes.any)).isRequired,
+};
 
 export default ProductTableLine;
