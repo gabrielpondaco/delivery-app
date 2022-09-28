@@ -18,8 +18,23 @@ export const requestPost = async (endpoint, body) => {
     const { data } = await api.post(endpoint, body);
     return data;
   } catch (error) {
+    console.log(error);
     return undefined;
   }
+};
+
+export const requestGet = async (endpoint, body) => {
+  try {
+    const { data } = await api.get(endpoint, body);
+    return data;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export const requestProducts = async (endpoint) => {
+  const { data } = await api.get(endpoint);
+  return data;
 };
 
 export default api;

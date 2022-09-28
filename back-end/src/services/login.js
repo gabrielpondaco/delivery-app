@@ -40,7 +40,7 @@ module.exports = {
       email: data.email,
       role: data.role,
     };
-    const userCreated = await Users.create({ ...userInfos, password: md5(data.password) });
-    return userCreated;
+    await Users.create({ ...userInfos, password: md5(data.password) });
+    return userInfos;
   },
 };

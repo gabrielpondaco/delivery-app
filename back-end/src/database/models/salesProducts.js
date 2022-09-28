@@ -2,6 +2,16 @@
 const { DataTypes } = require('sequelize');
 
 const attibutes = {
+  saleId: {
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  productId: {
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -11,7 +21,7 @@ const attibutes = {
 const SaleProduct = (sequelize) => {
   const SalesProduct = sequelize.define('SalesProducts', attibutes , {	
     timestamps: false,
-    tableName: 'salesProducts',
+    tableName: 'sales_products',
     underscored: true,
   });
   SalesProduct.associate = (models) => {
