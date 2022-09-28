@@ -13,7 +13,7 @@ function CardProducts(props) {
 
   const increaseProductQty = () => {
     setCartItems((prevState) => {
-      const product = { id, image, price, name };
+      const product = { id, image, price: price.replace('R$', ''), name };
       const cart = [...prevState];
       const productInCart = cart.find((item) => item.id === id);
       if (productInCart) {
@@ -52,7 +52,7 @@ function CardProducts(props) {
       const cart = [...prevState];
       const productInCart = cart.find((item) => item.id === id);
       if (!productInCart) {
-        const product = { id, image, price, name };
+        const product = { id, image, price: price.replace('R$', ''), name };
         product.qty = +value;
         setQuantity(+value);
         cart.push(product);
