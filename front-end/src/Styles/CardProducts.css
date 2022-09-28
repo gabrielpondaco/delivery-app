@@ -21,6 +21,11 @@
   width: 40px;
 }
 
+.card-price {
+  display: flex;
+  justify-content: center;
+}
+
 .card-style {
   background-color: rgba(197, 222, 173, 0.908);
   border-radius: 7px;
