@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../Styles/Header.css';
 import { getLocalStorage } from '../utils';
 
 function Header() {
+  const { pathname } = useLocation();
   const { name, token } = getLocalStorage('user');
   const navigate = useNavigate();
   useEffect(() => {
@@ -20,12 +21,14 @@ function Header() {
       >
         Produtos
       </Link>
-      <Link
-        to="/customer/orders"
-        data-testid="customer_products__element-navbar-link-orders"
-      >
-        Meus Pedidos
-      </Link>
+      {pathname.includes('customer')
+        ? (
+          <Link
+            to="/customer/orders"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Meus Pedidos
+          </Link>) : ''}
       <div className="username">
         <Link
           to="/customer/checkout"
