@@ -1,45 +1,41 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
+import ProductTableItem from './ProductTableItem';
 
-function ProductTableLine({ index, description, quantity, unitPrice }) {
+function ProductTableLine({ products }) {
+  const Items = products.map((product, index) => {
+    const { id, name, quantity, price } = product;
+    return (
+      <ProductTableItem
+        key={ id }
+        index={ index }
+        description={ name }
+        quantity={ quantity }
+        unitPrice={ price }
+      />
+    );
+  });
+
   return (
-    <main>
-      <span
-        data-testid={ `seller_order_details__element-order-table-item-number-${index}` }
-      >
-        {index}
-      </span>
-      <span
-        data-testid={ `seller_order_details__element-order-table-name-${index}` }
-      >
-        {description}
-      </span>
-      <span
-        data-testid={ `seller_order_details__element-order-table-quantity-${index}` }
-      >
-        {quantity}
-      </span>
-      <span
-        data-testid={ `seller_order_details__element-order-table-unit-price-${index}` }
-      >
-        R$
-        {unitPrice}
-      </span>
-      <span
-        data-testid={ `seller_order_details__element-order-table-sub-total-${index}` }
-      >
-        R$
-        {unitPrice * quantity}
-      </span>
-    </main>
+    <table className="detailsTable">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Valor Unitário</th>
+          <th>Sub-total</th>
+        </tr>
+      </thead>
+      <tbody>
+        { Items }
+      </tbody>
+    </table>
   );
 }
 
 ProductTableLine.propTypes = {
-  index: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
-  unitPrice: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
+  products: propTypes.arrayOf(propTypes.objectOf(propTypes.any)).isRequired,
 };
 
 export default ProductTableLine;

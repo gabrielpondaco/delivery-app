@@ -8,6 +8,7 @@ import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrdersDetails from './pages/SellerOrderDetails';
+import CustomerOrdersDetails from './pages/CustomerOrderDetails';
 import Logout from './pages/Logout';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Route exact path="/customer/products" element={ <Products /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
       <Route exact path="/customer/orders" element={ <Orders /> } />
+      <Route exact path="/customer/orders/:id" element={ <CustomerOrdersDetails /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
       <Route exact path="/logout" element={ <Logout /> } />

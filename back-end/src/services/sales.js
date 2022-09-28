@@ -28,15 +28,15 @@ const getByUserId = async (id) => {
 };
 
 const getByClientOrder = async (id) => {
-  const order = await model.SalesProduct.findAll({
+  const order = await model.SalesProducts.findAll({
     where: { saleId: id },
     attributes: ['productId', 'quantity'],
     raw: true,
   });
 
   const orderInfo = await model.Sales.findOne({
-    where: { saleId: id },
-    attributes: ['id', 'status', 'saleDate'],
+    where: { id },
+    attributes: ['id', 'status', 'saleDate', 'sellerId'],
     raw: true,
   });
 
