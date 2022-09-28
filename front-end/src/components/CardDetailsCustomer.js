@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import StatusPedido from './StatusPedido';
-
-/* <CardPedido
-        id={ 1 }
-        status="entregue"
-        saleDate={ Date.now() }
-        totalPrice={ 15 }
-        deliveryAddress="lalalão"
-      /> */
-// exemplo de uso
+import DeliveryContext from '../context/DeliveryContext';
 
 const checkStatus = (statusChange) => {
   const status = statusChange.toLowerCase();
@@ -19,11 +10,11 @@ const checkStatus = (statusChange) => {
 };
 
 const NUMERO_CASAS = -4;
-function CardDetailsCustomer({ id, status, saleDate }) {
+function CardDetailsCustomer({ id, status, saleDate, sellerId }) {
   const [statusChanged, setStatusChanged] = useState(status);
   const [checkDeliveryBtn, setCheckDeliveryBtn] = useState(true);
 
-  const mockSeller = 'mockSeller';
+  const { sellers } = useContext(DeliveryContext);
   const handleCheckDeliveryBtn = () => setStatusChanged('entregue');
 
   useEffect(() => {
@@ -39,19 +30,23 @@ function CardDetailsCustomer({ id, status, saleDate }) {
         {(`0000${id}`).slice(NUMERO_CASAS)}
         ;
       </span>
-      <span data-testid="customer_order_details__element-order-details-label-seller-name">
+      <span
+        id="sellerName"
+        data-testid="customer_order_details__element-order-details-label-seller-name"
+      >
         P.Vend:
-        { mockSeller }
+        { sellers.find((seller) => seller.id === sellerId).name }
       </span>
       <span
-        data-testid="seller_order_details__element-order-details-label-order-date"
+        id="orderDate"
+        data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        { saleDate }
+        { new Date(saleDate).toLocaleDateString('pt-br') }
       </span>
       <div
-        data-testid="seller_order_details__element-order-details-label-delivery-status"
+        data-testid="customer_order_details__element-order-details-label-delivery-status "
       >
-        {statusChanged.toUpperCase()}
+        {statusChanged}
       </div>
       <button
         type="button"
@@ -67,9 +62,10 @@ function CardDetailsCustomer({ id, status, saleDate }) {
 }
 
 CardDetailsCustomer.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   saleDate: PropTypes.string.isRequired,
+  sellerId: PropTypes.number.isRequired,
 };
 
 export default CardDetailsCustomer;
