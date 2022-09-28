@@ -7,21 +7,6 @@ import { requestGet, requestPost, setToken } from '../services/request';
 import { getLocalStorage } from '../utils';
 
 function Checkout() {
-  // para teste
-  // const productsArr = [
-  //   {
-  //     id: 1,
-  //     quantity: 2,
-  //     name: 'Coca Cola',
-  //     price: 3.00,
-  //   },
-  //   {
-  //     id: 2,
-  //     quantity: 3,
-  //     name: 'Coca Cola Zero',
-  //     price: 3.00,
-  //   },
-  // ];
   const { setCartItems, cartItems } = useContext(DeliveryContext);
   const [totalPrice, setTotalPrice] = useState(0);
   const [allSellers, setAllSellers] = useState([]);
@@ -32,13 +17,6 @@ function Checkout() {
   const [isValid, setIsValid] = useState(true);
 
   const navigate = useNavigate();
-
-  // const fetchUserId = async () => {
-  //   const uId = await requestPost('/userId', {
-  //     email: getLocalStorage('user').email,
-  //   });
-  //   return uId;
-  // };
 
   useEffect(() => {
     (async () => {
@@ -75,7 +53,6 @@ function Checkout() {
     case 'seller':
       setSeller(target.options[target.selectedIndex].text);
       break;
-    // o teste está setando seller para '' aqui
     case 'address':
       setDeliveryAddress(target.value);
       break;
@@ -95,13 +72,7 @@ function Checkout() {
   // $#zebirita#$
   const handleFinishOrder = async (e) => {
     e.preventDefault();
-    // const userId = await requestPost('/userId', {
-    //   email: getLocalStorage('user').email,
-    // });
     setToken(getLocalStorage('user').token);
-    // console.log(seller);
-    // console.log(allSellers.find(({ name }) => name === seller).id);
-    // console.log(allSellers.find(({ name }) => name === seller).id);
     const saleId = await requestPost('/order', {
       orderInfo: {
         userId,
@@ -109,13 +80,11 @@ function Checkout() {
         totalPrice,
         deliveryAddress,
         deliveryNumber,
-        // saleDate: new Date().toLocaleDateString(),
       },
       products: cartItems,
     });
     if (!saleId) setIsValid(true);
     else {
-      console.log(saleId);
       handleNavigate(saleId);
     }
   };
