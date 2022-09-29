@@ -7,38 +7,29 @@ import { requestGet, requestPost, setToken } from '../services/request';
 import { getLocalStorage } from '../utils';
 
 function Checkout() {
-  // para teste
-  // const productsArr = [
-  //   {
-  //     id: 1,
-  //     quantity: 2,
-  //     name: 'Coca Cola',
-  //     price: 3.00,
-  //   },
-  //   {
-  //     id: 2,
-  //     quantity: 3,
-  //     name: 'Coca Cola Zero',
-  //     price: 3.00,
-  //   },
-  // ];
   const { setCartItems, cartItems } = useContext(DeliveryContext);
   const [totalPrice, setTotalPrice] = useState(0);
   const [allSellers, setAllSellers] = useState([]);
   const [seller, setSeller] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [userId, setUserId] = useState('');
   const [isValid, setIsValid] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchSellers = async () => {
+    (async () => {
       const result = await requestGet('/sellers');
       setAllSellers(result);
       setSeller(result[0].name);
-    };
-    fetchSellers();
+    })();
+    (async () => {
+      const data = await requestPost('/userId', {
+        email: getLocalStorage('user').email,
+      });
+      setUserId(data);
+    })();
   }, []);
 
   useEffect(() => {
@@ -60,7 +51,7 @@ function Checkout() {
   const onInpChange = ({ target }) => {
     switch (target.id) {
     case 'seller':
-      setSeller(target.value);
+      setSeller(target.options[target.selectedIndex].text);
       break;
     case 'address':
       setDeliveryAddress(target.value);
@@ -77,11 +68,10 @@ function Checkout() {
     navigate(`/customer/orders/${saleId}`);
   };
 
+  // Zé Birita
+  // $#zebirita#$
   const handleFinishOrder = async (e) => {
     e.preventDefault();
-    const userId = await requestPost('/userId', {
-      email: getLocalStorage('user').email,
-    });
     setToken(getLocalStorage('user').token);
     const saleId = await requestPost('/order', {
       orderInfo: {
@@ -90,12 +80,13 @@ function Checkout() {
         totalPrice,
         deliveryAddress,
         deliveryNumber,
-        saleDate: new Date().toLocaleDateString(),
       },
       products: cartItems,
     });
     if (!saleId) setIsValid(true);
-    handleNavigate(saleId);
+    else {
+      handleNavigate(saleId);
+    }
   };
 
   return (
@@ -117,12 +108,11 @@ function Checkout() {
             P. Vendedora Responsável
             <select
               id="seller"
-              value={ seller }
               onChange={ onInpChange }
               data-testid="customer_checkout__select-seller"
             >
               { allSellers.map(({ name }) => (
-                <option key={ name }>{ name }</option>
+                <option key={ name } value={ name }>{ name }</option>
               )) }
             </select>
           </label>

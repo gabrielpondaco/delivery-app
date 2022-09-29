@@ -30,12 +30,12 @@ const attibutes = {
   saleDate: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: new Date(),
+    defaultValue: DataTypes.NOW(),
   },
   status: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'PREPARANDO',
+    defaultValue: 'Pendente',
   },
 };
 

@@ -4,7 +4,8 @@ const productService = require('./product');
 const createOrder = async ({ orderInfo, products }) => {
   try {
     const { dataValues } = await model.Sales.create(orderInfo);
-    const fixedProducts = products.map(({ id, qty }) => ({ saleId: dataValues.id, productId: id, quantity: qty }));
+    const fixedProducts = products
+      .map(({ id, qty }) => ({ saleId: dataValues.id, productId: id, quantity: qty }));
     await model.SalesProducts.bulkCreate(fixedProducts);
     return dataValues.id;
   } catch (err) {
@@ -14,7 +15,7 @@ const createOrder = async ({ orderInfo, products }) => {
 
 const getAllBySellerOrder = async (id) => {
   const orders = await model.Sales.findAll({
-    where: { sellerId : id },
+    where: { sellerId: id },
     raw: true,
   });
 
@@ -27,15 +28,15 @@ const getByUserId = async (id) => {
 };
 
 const getByClientOrder = async (id) => {
-  const order = await model.SalesProduct.findAll({
+  const order = await model.SalesProducts.findAll({
     where: { saleId: id },
     attributes: ['productId', 'quantity'],
     raw: true,
   });
 
   const orderInfo = await model.Sales.findOne({
-    where: { saleId: id },
-    attributes: ['id', 'status', 'saleDate'],
+    where: { id },
+    attributes: ['id', 'status', 'saleDate', 'sellerId'],
     raw: true,
   });
 
