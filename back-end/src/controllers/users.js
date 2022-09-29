@@ -10,4 +10,8 @@ module.exports = {
     const result = await service.getUserId(email);
     return res.status(200).json(result);
   },
+  async getAll(_req, res) {
+    const result = await service.getAll();
+    return res.status(200).json(result);
+  }
 };

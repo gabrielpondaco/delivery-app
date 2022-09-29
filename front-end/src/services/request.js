@@ -37,4 +37,8 @@ export const requestProducts = async (endpoint) => {
   return data;
 };
 
+// TODO: thiago - function - getaAllUsers
+
+// TODO: thiago - function - createNewUserByAdmin
+
 export default api;
