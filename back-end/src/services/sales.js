@@ -22,6 +22,15 @@ const getAllBySellerOrder = async (id) => {
   return orders;
 };
 
+const getAllByClientOrder = async (id) => {
+  const orders = await model.Sales.findAll({
+    where: { userId: id },
+    raw: true,
+  });
+
+  return orders;
+};
+
 const getByUserId = async (id) => {
   const order = await model.Sales.findAll({ where: { userId: id } });
   return order;
@@ -61,4 +70,5 @@ module.exports = {
   getByClientOrder,
   updateOrderStatus,
   getByUserId,
+  getAllByClientOrder,
 };

@@ -4,9 +4,9 @@ const auth = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.get('/seller/orders', controller.getAllBySellerOrder);
+router.post('/seller/orders', controller.getAllBySellerOrder);
 
-// router.get('/customer/orders', controller.getByClientOrder);
+router.post('/customer/orders', controller.getAllByClientOrder);
 
 router.get('/orders/:id', controller.getByClientOrder);
 

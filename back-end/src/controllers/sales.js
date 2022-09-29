@@ -21,6 +21,13 @@ const getAllBySellerOrder = async (req, res) => {
   return res.status(200).json(orders);
 };
 
+const getAllByClientOrder = async (req, res) => {
+  const { id } = req.body;
+  const orders = await service.getAllByClientOrder(id);
+
+  return res.status(200).json(orders);
+};
+
 const getByClientOrder = async (req, res) => {
   const { id } = req.params;
 
@@ -44,4 +51,5 @@ module.exports = {
   getByClientOrder,
   updateOrderStatus,
   getByUserId,
+  getAllByClientOrder,
 };
