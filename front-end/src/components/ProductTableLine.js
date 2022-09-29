@@ -7,7 +7,7 @@ function ProductTableLine({ products }) {
     const { id, name, quantity, price } = product;
     return (
       <ProductTableItem
-        key={ id }
+        key={ `${id} ${index}` }
         index={ index }
         description={ name }
         quantity={ quantity }

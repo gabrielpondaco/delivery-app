@@ -5,7 +5,7 @@ function ProductTableItem({ index, description, quantity, unitPrice }) {
   const subTotal = (
     Number(unitPrice) * Number(quantity)).toFixed(2).toString().replace('.', ',');
   return (
-    <tr>
+    <tr key={ `${index} ${description}` }>
       <td
         className="item-details"
         data-testid={ `seller_orders__element-order-table-item-number-${index}` }

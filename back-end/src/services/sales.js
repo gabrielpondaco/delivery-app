@@ -60,7 +60,7 @@ const getByClientOrder = async (id) => {
 
 const updateOrderStatus = async (id, status) => {
   await model.Sales.update({ status }, {
-    where: { saleId: id },
+    where: { id },
   });
 };
 

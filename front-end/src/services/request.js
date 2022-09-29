@@ -37,4 +37,14 @@ export const requestProducts = async (endpoint) => {
   return data;
 };
 
+export const requestPut = async (endpoint, body) => {
+  console.log(endpoint);
+  try {
+    const { data } = await api.put(endpoint, body);
+    return data;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 export default api;

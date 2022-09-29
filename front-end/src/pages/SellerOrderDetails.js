@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import CardDetailsSeller from '../components/CardDetailsSeller';
 import ProductTableLine from '../components/ProductTableLine';
+import { requestGet } from '../services/request';
 
 function SellerOrdersDetails() {
   const [orderDetails, setOrderDetails] = useState(null);

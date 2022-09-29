@@ -97,6 +97,17 @@ a {
   width: 150px;
 }
 
+.transito {
+  align-items: center;
+  background-color: #b40078bf;
+  border-radius: 10px;
+  display: flex;
+  height: 75px;
+  justify-content: center;
+  text-align: center;
+  width: 150px;
+}
+
 .boxCardPedido {
   background: #eaf1ef;
   border: 1px solid #b1c2be;

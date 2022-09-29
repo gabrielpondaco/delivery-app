@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { requestPut, setToken } from '../services/request';
+import { getLocalStorage } from '../utils';
 // import StatusPedido from './StatusPedido';
 
 /* <CardPedido
@@ -35,8 +37,17 @@ function CardDetailsSeller({ id, status, saleDate }) {
   const [statusChanged, setStatusChanged] = useState(status);
   const [preparingCheckBtn, setPreparingCheckBtn] = useState(false);
   const [preparingDispatchBtn, setPreparingDispatchBtn] = useState(true);
-  const handleClickPreparing = () => setStatusChanged('Preparando');
-  const handleClickDispatch = () => setStatusChanged('Em Trânsito');
+  const handleClickPreparing = () => {
+    setStatusChanged('Preparando');
+    setToken(getLocalStorage('user').token);
+    requestPut(`/status/${id}`, { status: 'Preparando' });
+  };
+
+  const handleClickDispatch = () => {
+    setStatusChanged('Em Trânsito');
+    setToken(getLocalStorage('user').token);
+    requestPut(`/status/${id}`, { status: 'Em Trânsito' });
+  };
 
   useEffect(() => {
     setPreparingCheckBtn(checkStatus(statusChanged));
@@ -83,7 +94,7 @@ function CardDetailsSeller({ id, status, saleDate }) {
 }
 
 CardDetailsSeller.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   saleDate: PropTypes.string.isRequired,
 };
