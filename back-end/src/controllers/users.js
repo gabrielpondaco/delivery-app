@@ -13,5 +13,5 @@ module.exports = {
   async getAll(_req, res) {
     const result = await service.getAll();
     return res.status(200).json(result);
-  }
+  },
 };
