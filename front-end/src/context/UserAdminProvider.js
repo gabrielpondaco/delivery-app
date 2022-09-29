@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AdminUserContext from './UserAdminContext';
 
@@ -6,12 +6,13 @@ import AdminUserContext from './UserAdminContext';
 function AdminUserProvider({ children }) {
   const [userData, setUserData] = useState();
 
-  useEffect(() => {
-  }, [userData]);
+  const contextValue = useMemo(() => ({
+    userData, setUserData,
+  }), [userData, setUserData]);
 
   return (
     <AdminUserContext.Provider
-      value={ { userData, setUserData } }
+      value={ contextValue }
     >
       {children}
     </AdminUserContext.Provider>

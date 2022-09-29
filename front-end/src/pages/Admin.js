@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AdminNavBar from '../components/AdminNavBar';
 import RegisterUser from '../components/RegisterUser';
-import { getAllUsers } from '../services/request';
+// import { getAllUsers } from '../services/request';
+
+// email adm@deliveryapp.com e senha --adm2@21!!--.
 
 const dataTestId70 = 'admin_manage__element-user-table-item-number';
 const dataTestId71 = 'admin_manage__element-user-table-name';

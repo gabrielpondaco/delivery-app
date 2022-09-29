@@ -14,5 +14,6 @@ module.exports = {
   },
   async getAll() {
     const users = await models.Users.findAll({ raw: true });
+    return users;
   }
 };
