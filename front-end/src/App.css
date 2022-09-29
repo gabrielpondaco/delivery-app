@@ -108,7 +108,39 @@ a {
   margin-right: 1cm;
   right: 50%;
   top: 0;
-  width: 100%;
+  width: 25vw;
+}
+
+.cardSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.statusDatePrice {
+  display: flex;
+}
+
+.displayFlex {
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+}
+
+.sizing {
+  margin: auto;
+  text-align: center;
+  width: 80vw;
+}
+
+.textAlign {
+  text-align: end;
+}
+
+.numeroPedido {
+  align-items: center;
+  display: flex;
+  padding-left: 0.5cm;
+  padding-right: 0.5cm;
 }
 
 .boxCardDetails {

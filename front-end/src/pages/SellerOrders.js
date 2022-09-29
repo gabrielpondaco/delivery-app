@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CardPedido from '../components/CardPedido';
 import Header from '../components/Header';
+import { requestPost } from '../services/request';
+import { getLocalStorage } from '../utils';
+
 /* <CardPedido
         id={ 1 }
         status="entregue"
@@ -10,49 +13,71 @@ import Header from '../components/Header';
         deliveryAddress="lalalão"
       /> */
 // exemplo de uso
-const timeElapsed = Date.now();
-const today = new Date(timeElapsed);
-const order1 = {
-  id: 1,
-  status: 'entregue',
-  saleDate: today.toLocaleDateString(),
-  totalPrice: 15,
-  deliveryAddress: 'lalalão lalala lalalao',
-};
-const order2 = {
-  id: 2,
-  status: 'pendente',
-  saleDate: today.toLocaleDateString(),
-  totalPrice: 17,
-  deliveryAddress: 'xaxim',
-};
-const order3 = {
-  id: 3,
-  status: 'pendente',
-  saleDate: today.toLocaleDateString(),
-  totalPrice: 17,
-  deliveryAddress: 'xaxim',
-};
-const order4 = {
-  id: 4,
-  status: 'pendente',
-  saleDate: today.toLocaleDateString(),
-  totalPrice: 17,
-  deliveryAddress: 'xaxim',
-};
-const orders = [order1, order2, order3, order4];
+// const timeElapsed = Date.now();
+// const today = new Date(timeElapsed);
+// const order1 = {
+//   id: 1,
+//   status: 'entregue',
+//   saleDate: today.toLocaleDateString(),
+//   totalPrice: 15,
+//   deliveryAddress: 'lalalão lalala lalalao',
+// };
+// const order2 = {
+//   id: 2,
+//   status: 'pendente',
+//   saleDate: today.toLocaleDateString(),
+//   totalPrice: 17,
+//   deliveryAddress: 'xaxim',
+// };
+// const order3 = {
+//   id: 3,
+//   status: 'pendente',
+//   saleDate: today.toLocaleDateString(),
+//   totalPrice: 17,
+//   deliveryAddress: 'xaxim',
+// };
+// const order4 = {
+//   id: 4,
+//   status: 'pendente',
+//   saleDate: today.toLocaleDateString(),
+//   totalPrice: 17,
+//   deliveryAddress: 'xaxim',
+// };
+// const orders = [order1, order2, order3, order4];
 
 function SellerOrders() {
+  const [sales, setSales] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const data = await requestPost('/userId', {
+        email: getLocalStorage('user').email,
+      });
+      setUserId(data);
+      setSales([]);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      (async () => {
+        console.log(userId);
+        const response = await requestPost('/seller/orders', { id: userId });
+        setSales(response);
+      })();
+    }
+  }, [userId]);
   return (
     <>
       <Header />
       <main className="sizing">
         <h1>SellerOrders</h1>
         <section className="displayFlex">
-          {orders.map((order, index) => (
+          {sales ? sales.map((order, index) => (
             <Link to={ `/seller/orders/${order.id}` } key={ index }>
-              <CardPedido order={ order } />
-            </Link>))}
+              <CardPedido order={ order } chave={ index } />
+            </Link>)) : ''}
         </section>
         {/*
           fazer um map das vendas, e para cada venda, chama um CardPedido passando as informações, caso necessário, refatorar para CardPedido receber apenas um objeto, e ficar responsável por identificar os dados
