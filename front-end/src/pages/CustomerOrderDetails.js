@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
-import CardDetailsSeller from '../components/CardDetailsSeller';
+import CardDetailsCustomer from '../components/CardDetailsCustomer';
 import ProductTableLine from '../components/ProductTableLine';
+import { requestGet } from '../services/request';
 
-function SellerOrdersDetails() {
+function CustomerOrdersDetails() {
   const [orderDetails, setOrderDetails] = useState(null);
   const { id } = useParams();
 
@@ -22,19 +24,21 @@ function SellerOrdersDetails() {
           <h1>Detalhe do Pedido</h1>
           {orderDetails ? (
             <>
-              <CardDetailsSeller
+              <CardDetailsCustomer
                 id={ id }
                 status={ orderDetails.status }
                 saleDate={ orderDetails.saleDate }
+                sellerId={ orderDetails.sellerId }
               />
               <ProductTableLine products={ orderDetails.productsInfo } />
             </>) : ''}
+
           <h1>
             Total:
             {' '}
             R$
             {' '}
-            <span data-testid="seller_order_details__element-order-total-price">
+            <span data-testid="customer_order_details__element-order-total-price">
               { orderDetails ? orderDetails.productsInfo
                 .reduce((acc, { price, quantity }) => (
                   acc + (price * quantity)), 0)
@@ -47,4 +51,4 @@ function SellerOrdersDetails() {
   );
 }
 
-export default SellerOrdersDetails;
+export default CustomerOrdersDetails;

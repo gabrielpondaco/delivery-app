@@ -12,4 +12,8 @@ module.exports = {
     const user = await models.Users.findOne({ where: { email }, raw: true });
     return user.id;
   },
+  async getAll() {
+    const users = await models.Users.findAll({ raw: true });
+    return users;
+  }
 };

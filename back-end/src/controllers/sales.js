@@ -22,7 +22,7 @@ const getAllBySellerOrder = async (req, res) => {
 };
 
 const getByClientOrder = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   const order = await service.getByClientOrder(id);
 
