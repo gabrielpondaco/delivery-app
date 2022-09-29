@@ -5,6 +5,7 @@ import { getLocalStorage } from '../utils';
 
 function Header() {
   const { pathname } = useLocation();
+  const isCustomer = pathname.includes('customer');
   const { name, token } = getLocalStorage('user');
   const navigate = useNavigate();
   useEffect(() => {
@@ -15,20 +16,29 @@ function Header() {
 
   return (
     <nav>
-      <Link
-        to="/customer/products"
-        data-testid="customer_products__element-navbar-link-products"
-      >
-        Produtos
-      </Link>
-      {pathname.includes('customer')
+      {isCustomer
         ? (
+          <>
+            <Link
+              to="/customer/products"
+              data-testid="customer_products__element-navbar-link-products"
+            >
+              Produtos
+            </Link>
+            <Link
+              to="/customer/orders"
+              data-testid="customer_products__element-navbar-link-orders"
+            >
+              Meus Pedidos
+            </Link>
+          </>)
+        : (
           <Link
-            to="/customer/orders"
+            to="/seller/orders"
             data-testid="customer_products__element-navbar-link-orders"
           >
-            Meus Pedidos
-          </Link>) : ''}
+            Pedidos
+          </Link>)}
       <div className="username">
         <Link
           to="/customer/checkout"

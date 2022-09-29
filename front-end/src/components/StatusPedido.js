@@ -11,10 +11,9 @@ import { useLocation } from 'react-router-dom';
 function StatusPedido({ status, id }) {
   const { pathname } = useLocation();
   const isCustomer = pathname.includes('customer');
-  console.log(isCustomer);
   return (
     <main>
-      <div className={ status.toLowerCase() }>
+      <div className={ status.includes('sito') ? 'transito' : status.toLowerCase() }>
         <span
           data-testid={ isCustomer
             ? `customer_orders__element-delivery-status-${id}`
