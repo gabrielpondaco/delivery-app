@@ -36,8 +36,14 @@ export const requestProducts = async (endpoint) => {
   return data;
 };
 
-// TODO: thiago - function - getaAllUsers
-
-// TODO: thiago - function - createNewUserByAdmin
+export const requestPut = async (endpoint, body) => {
+  console.log(endpoint);
+  try {
+    const { data } = await api.put(endpoint, body);
+    return data;
+  } catch (error) {
+    return undefined;
+  }
+};
 
 export default api;

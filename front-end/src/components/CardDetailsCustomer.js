@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryContext from '../context/DeliveryContext';
+import { getLocalStorage } from '../utils';
+import { requestPut, setToken } from '../services/request';
 
 const checkStatus = (statusChange) => {
   const status = statusChange.toLowerCase();
@@ -15,7 +17,11 @@ function CardDetailsCustomer({ id, status, saleDate, sellerId }) {
   const [checkDeliveryBtn, setCheckDeliveryBtn] = useState(true);
 
   const { sellers } = useContext(DeliveryContext);
-  const handleCheckDeliveryBtn = () => setStatusChanged('entregue');
+  const handleCheckDeliveryBtn = () => {
+    setStatusChanged('Entregue');
+    setToken(getLocalStorage('user').token);
+    requestPut(`/status/${id}`, { status: 'Entregue' });
+  };
 
   useEffect(() => {
     setCheckDeliveryBtn(checkStatus(statusChanged));

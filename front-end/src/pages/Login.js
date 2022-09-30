@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestPost, setToken } from '../services/request';
-import { setLocalStorage } from '../utils';
+import { setLocalStorage, getLocalStorage } from '../utils';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -10,6 +10,13 @@ function Login() {
   const [isDataInvalid, setisDataInvalid] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = getLocalStorage('user');
+    if (user.role === 'customer') navigate('/customer/products');
+    if (user.role === 'seller') navigate('/seller/orders');
+    if (user.role === 'administrator') navigate('/admin/manage');
+  }, []);
 
   useEffect(() => {
     const regex = /\S+@\S+\.\S+/;
@@ -30,7 +37,6 @@ function Login() {
     else {
       setToken(response.token);
       setLocalStorage('user', response);
-      navigate('/customer/products');
       if (response.role === 'customer') navigate('/customer/products');
       if (response.role === 'seller') navigate('/seller/orders');
       if (response.role === 'administrator') navigate('/admin/manage');
