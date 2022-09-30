@@ -14,4 +14,8 @@ module.exports = {
     const result = await service.getAll();
     return res.status(200).json(result);
   },
+  // async createUser(req, res) {
+  //   const result = await service.createUser(req.body);
+  //   return res.status(201).json(result);
+  // },
 };

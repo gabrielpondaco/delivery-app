@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
-import UserAdminContext from '../context/UserAdminContext';
+import React, { useEffect, useState } from 'react';
 // import { createNewUserByAdmin } from '../services/request';
+import PropTypes from 'prop-types';
 import ErrorLogin from './ErrorLogin';
+import { getLocalStorage } from '../utils';
+import { requestPost, setToken } from '../services/request';
 
 const testId = 'admin_manage__element-invalid-register';
 const ErrorMsg = 'Usuário já cadastrado ou Token inválido!';
 
-export default function NewUser() {
-  const { userData } = useContext(UserAdminContext);
+function NewUser({ handleUsers }) {
+  const userData = getLocalStorage('user');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,15 +28,22 @@ export default function NewUser() {
   const createUser = async () => {
     try {
       const { token } = userData;
-      const result = await createNewUserByAdmin({ name, email, password, role, token });
+      setToken(token);
+      console.log(name, email, password, role);
+      const result = await requestPost('/register', { name, email, password, role });
+      // const result = await createNewUserByAdmin({ name, email, password, role, token });
       if (result) {
         setName('');
         setEmail('');
         setPassword('');
         setRole('');
         setErrorMessage(true);
+        handleUsers((prevState) => ([...prevState, { name, email, password, role }]));
+      } else {
+        setErrorMessage(false);
       }
     } catch (error) {
+      console.log(error);
       setErrorMessage(false);
     }
   };
@@ -128,3 +137,8 @@ export default function NewUser() {
     </main>
   );
 }
+NewUser.propTypes = {
+  handleUsers: PropTypes.func.isRequired,
+};
+
+export default NewUser;

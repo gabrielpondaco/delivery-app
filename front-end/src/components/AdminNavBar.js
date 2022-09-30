@@ -1,9 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import UserAdminContext from '../context/UserAdminContext';
+// import UserAdminContext from '../context/UserAdminContext';
+// import { requestGet, requestPost, setToken } from '../services/request';
+import { getLocalStorage } from '../utils';
 
 function AdminNavBar() {
-  const { userName, navBarLogout, setNavBarLogout } = useContext(UserAdminContext);
+  // const { navBarLogout, setNavBarLogout } = useContext(UserAdminContext);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const { name } = getLocalStorage('user');
+    setUserName(name);
+  }, []);
 
   return (
     <div>
@@ -24,7 +32,6 @@ function AdminNavBar() {
             to="/"
             data-testid="customer_products__element-navbar-link-logout"
             onClick={ () => {
-              setNavBarLogout(!navBarLogout);
               localStorage.clear();
             } }
           >

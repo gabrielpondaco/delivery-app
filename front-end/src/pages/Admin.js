@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AdminNavBar from '../components/AdminNavBar';
 import RegisterUser from '../components/RegisterUser';
-// import { getAllUsers } from '../services/request';
+import { requestData, setToken } from '../services/request';
+import { getLocalStorage } from '../utils';
 
 const dataTestId70 = 'admin_manage__element-user-table-item-number';
 const dataTestId71 = 'admin_manage__element-user-table-name';
@@ -20,8 +21,11 @@ export default function Admin() {
   };
 
   useEffect(() => {
+    const userData = getLocalStorage('user');
+    const { token } = userData;
+    setToken(token);
     setIsLoading(true);
-    getAllUsers().then((resp) => {
+    requestData('/users').then((resp) => {
       filterRoles(resp);
       setIsLoading(false);
     });
@@ -61,7 +65,7 @@ export default function Admin() {
   return (
     <div>
       <AdminNavBar />
-      <RegisterUser />
+      <RegisterUser handleUsers={ setUsers } />
       <h3>Lista de usuários</h3>
       <section>
         {
