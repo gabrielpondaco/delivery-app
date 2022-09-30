@@ -18,7 +18,6 @@ export const requestPost = async (endpoint, body) => {
     const { data } = await api.post(endpoint, body);
     return data;
   } catch (error) {
-    console.log(error);
     return undefined;
   }
 };
