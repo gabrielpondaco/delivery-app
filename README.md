@@ -39,7 +39,7 @@ Trata-se do desenvolvimento da aplicação completa, tanto front quanto back-end
 
 - ⚠️ O projeto só instala as dependências com a versão 16 do `node` para evitar conflitos de versão, caso não tenha essa versão instalada você pode usar o [`nvm`](https://github.com/nvm-sh/nvm#installing-and-updating) para fazer o gerenciamento de versões.
 - Banco de dados Mysql instalado localmente ou em um container Docker
-- Dentro do diretório `back-end` há um arquivo `.env`, seu conteúdo deve ser alterado para a configuração do seu Mysql.
+- Dentro do diretório `back-end` há um arquivo `.env.example`, que deve ser renomeado para `.env` e seu conteúdo deve ser alterado para a configuração do seu Mysql.
 
 ```bash
 NODE_ENV=development
